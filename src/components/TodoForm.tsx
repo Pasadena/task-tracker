@@ -3,6 +3,13 @@ import styled from 'styled-components';
 import { useSetRecoilState } from 'recoil';
 
 import { taskList, generateId } from '../state/atoms';
+import { Heading2 } from './Typography';
+
+const FormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
 
 const Form = styled.form`
   display: flex;
@@ -32,10 +39,13 @@ const TodoForm = ({}) => {
     setName('');
   }
   return (
-    <Form onSubmit={saveTodo}>
-      <InputName onChange={e => setName(e.target.value)} />
-      <SubmitButton type="submit" disabled={saveDisabled()}>Save</SubmitButton>
-    </Form>
+    <FormContainer>
+      <Heading2>Track task:</Heading2>
+      <Form onSubmit={saveTodo}>
+        <InputName onChange={e => setName(e.target.value)} />
+        <SubmitButton type="submit" disabled={saveDisabled()}>Save</SubmitButton>
+      </Form>
+    </FormContainer>
   );
 }
 

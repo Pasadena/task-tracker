@@ -4,6 +4,8 @@ import { useRecoilState } from 'recoil';
 
 import { taskList } from '../state/atoms';
 
+import { Heading2, Paragraph } from './Typography';
+
 const Todos = styled.div`
   display: flex;
   flex-direction: column;
@@ -21,7 +23,9 @@ const TodoList = () => {
 
   return (
     <Todos>
+      <Heading2>Active tasks:</Heading2>
       {todos.map((todo: Todo) => <Todo key={todo.id} todo={todo} onStatusChanged={toggleComplete}/>)}
+      { todos.length === 0 && <Paragraph>No active tasks \o/</Paragraph>}
     </Todos>
   )
 }
