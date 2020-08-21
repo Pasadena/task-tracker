@@ -6,6 +6,8 @@ import { taskList } from '../state/atoms';
 
 import { Heading2, Paragraph } from './Typography';
 
+import { fetchTodos } from '../core/api';
+
 const Todos = styled.div`
   display: flex;
   flex-direction: column;
@@ -20,6 +22,14 @@ const TodoList = () => {
     const newList = [...todos.slice(0, index), updated, ...todos.slice(index + 1)];
     setTodos(newList);
   }
+
+  React.useEffect(() => {
+    async function loadTodos() {
+      const fetchedTodos = await fetchTodos();
+      setTodos(fetchedTodos);
+    }
+    loadTodos();
+  }, [setTodos]);
 
   return (
     <Todos>

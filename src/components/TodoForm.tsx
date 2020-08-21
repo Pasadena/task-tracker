@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSetRecoilState } from 'recoil';
 
-import { taskList, generateId } from '../state/atoms';
+import { taskList } from '../state/atoms';
 import { Heading2 } from './Typography';
+import { createTodo } from '../core/api';
 
 const FormContainer = styled.div`
   display: flex;
@@ -35,7 +36,9 @@ const TodoForm = ({}) => {
 
   const saveTodo = (e: any) => {
     e.preventDefault();
-    setTaskList((oldValue: Todo[]) => [...oldValue, { name, completed: false, id: generateId() }]);
+    const newTodo = { name, completed: false };
+    createTodo(newTodo);
+    setTaskList((oldValue: Todo[]) => [...oldValue, newTodo]);
     setName('');
   }
   return (

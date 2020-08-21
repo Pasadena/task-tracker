@@ -1,5 +1,5 @@
 declare interface Todo {
-  id: string;
+  id?: string;
   name: string;
   completed: boolean;
 }
