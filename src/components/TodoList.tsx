@@ -8,10 +8,27 @@ import { Heading2, Paragraph } from './Typography';
 
 import { fetchTodos } from '../core/api';
 
+import { DEVICE_SIZES } from '../core/constants';
+
+const TodoListContainer = styled.div`
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
+`;
+
 const Todos = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 1rem;
+  @media (min-width: ${DEVICE_SIZES.laptop}) { 
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
 `;
 
 const TodoList = () => {
@@ -32,12 +49,14 @@ const TodoList = () => {
   }, [setTodos]);
 
   return (
-    <Todos>
+    <TodoListContainer>
       <Heading2>Active tasks:</Heading2>
-      {todos.map((todo: Todo) => <Todo key={todo.id} todo={todo} onStatusChanged={toggleComplete}/>)}
-      { todos.length === 0 && <Paragraph>No active tasks \o/</Paragraph>}
-    </Todos>
-  )
+      <Todos>
+        {todos.map((todo: Todo) => <Todo key={todo.id} todo={todo} onStatusChanged={toggleComplete}/>)}
+        { todos.length === 0 && <Paragraph>No active tasks \o/</Paragraph>}
+      </Todos>
+    </TodoListContainer>
+  );
 }
 
 const TodoLayout = styled.div`
@@ -45,9 +64,12 @@ const TodoLayout = styled.div`
   padding: 1rem;
   border: 1px solid #EDECEC;
   border-radius: 2px;
-  min-width: 300px;
   background-color: #F7F7F7;
   box-shadow: 1px 1px 2px #EB7FA3;
+  margin-bottom: 1rem;
+  @media (min-width: ${DEVICE_SIZES.laptop}) { 
+    width: 40%;
+  }
 `;
 
 const TodoInfo = styled.div`

@@ -8,6 +8,7 @@ export const Heading2 = styled.h2`
   margin: 0;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+  padding-left: 1rem;
 `;
 
 export const Paragraph = styled.p`

@@ -8,8 +8,9 @@ import { createTodo } from '../core/api';
 
 const FormContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
   justify-content: center;
+  padding: 1rem;
 `;
 
 const Form = styled.form`

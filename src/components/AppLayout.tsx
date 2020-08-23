@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { DEVICE_SIZES } from '../core/constants';
+
 const Layout = styled.div`
-  width: 50vw;
-  background-color: #ffff;
+  background-color: rgba(255, 255, 255, 0.97);
   border-radius: 4px;
   display: flex;
   flex: 1;
@@ -12,9 +13,9 @@ const Layout = styled.div`
   justify-content: center;
   margin: auto;
   margin-top: 4rem;
-  & > * {
-    padding: 1rem;
-    max-width: 50%;
+  width: 95%;
+  @media (min-width: ${DEVICE_SIZES.laptop}) { 
+    width: 50%;
   }
 `;
 
