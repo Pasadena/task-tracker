@@ -42,20 +42,50 @@ const TodoList = () => {
 
 const TodoLayout = styled.div`
   display: flex;
+  padding: 1rem;
+  border: 1px solid #EDECEC;
+  border-radius: 2px;
+  min-width: 300px;
+  background-color: #F7F7F7;
+  box-shadow: 1px 1px 2px #EB7FA3;
 `;
 
-const TodoName = styled.div`
+const TodoInfo = styled.div`
   flex: 1;
 `;
 
-const TodoStatusCheckbox = styled.input`
+const StatusContainer =  styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
+const TodoName = styled.div`
+  font-size: 1.5rem;
+  font-weight: 500;
+  flex: 1;
+`;
+
+const CreatedAt = styled.div`
+  font-size: 0.6rem;
+  padding-left: 0.5rem;
+  padding-top: 1rem;
+`;
+
+const TodoStatusCheckbox = styled.input`
+  width: 20px;
+  height: 20px;
 `;
 
 const Todo = ({ todo, onStatusChanged }: { todo: Todo, onStatusChanged: (todo: Todo) => void }) => (
   <TodoLayout>
-    <TodoName>{todo.name}</TodoName>
-    <TodoStatusCheckbox onChange={() => onStatusChanged(todo)} type="checkbox" checked={todo.completed}/>
+    <TodoInfo>
+      <TodoName>{todo.name}</TodoName>
+      {todo.createdAt && <CreatedAt>{todo.createdAt}</CreatedAt>}
+    </TodoInfo>
+    <StatusContainer>
+      <TodoStatusCheckbox onChange={() => onStatusChanged(todo)} type="checkbox" checked={todo.completed}/>
+    </StatusContainer>
   </TodoLayout>
 )
 
