@@ -18,3 +18,7 @@ export const createTodo = (todo: Todo) => axios.post(`${API_URL}/task-tracker`, 
 export const fetchTodos = () =>
   axios.get(`${API_URL}/task-tracker`, headerConfig('get'))
   .then(res => res.data);
+
+export const completeTodo = (id: string) =>
+  axios.put(`${API_URL}/task-tracker`, JSON.stringify({ id }), headerConfig('put'))
+  .then(res => res.data);

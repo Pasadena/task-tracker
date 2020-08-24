@@ -6,7 +6,7 @@ import { taskList } from '../state/atoms';
 
 import { Heading2, Paragraph } from './Typography';
 
-import { fetchTodos } from '../core/api';
+import { fetchTodos, completeTodo } from '../core/api';
 
 import { DEVICE_SIZES } from '../core/constants';
 
@@ -33,12 +33,12 @@ const Todos = styled.div`
 
 const TodoList = () => {
   const [todos, setTodos] = useRecoilState(taskList);
-  const toggleComplete = (todo: Todo) => {
-    const updated = { ...todo, completed: !todo.completed };
+  const changeStatus = React.useCallback(async (todo: Todo) => {
     const index = todos.findIndex((item: Todo) => item.id === todo.id);
+    const updated = await completeTodo(todo.id);
     const newList = [...todos.slice(0, index), updated, ...todos.slice(index + 1)];
     setTodos(newList);
-  }
+  }, [todos, setTodos]);
 
   React.useEffect(() => {
     async function loadTodos() {
@@ -52,7 +52,7 @@ const TodoList = () => {
     <TodoListContainer>
       <Heading2>Active tasks:</Heading2>
       <Todos>
-        {todos.map((todo: Todo) => <Todo key={todo.id} todo={todo} onStatusChanged={toggleComplete}/>)}
+        {todos.map((todo: Todo) => <Todo key={todo.id} todo={todo} onStatusChanged={changeStatus}/>)}
         { todos.length === 0 && <Paragraph>No active tasks \o/</Paragraph>}
       </Todos>
     </TodoListContainer>
@@ -106,7 +106,7 @@ const Todo = ({ todo, onStatusChanged }: { todo: Todo, onStatusChanged: (todo: T
       {todo.createdAt && <CreatedAt>{todo.createdAt}</CreatedAt>}
     </TodoInfo>
     <StatusContainer>
-      <TodoStatusCheckbox onChange={() => onStatusChanged(todo)} type="checkbox" checked={todo.completed}/>
+      <TodoStatusCheckbox onChange={() => onStatusChanged(todo)} type="checkbox" checked={!!todo.completed_at}/>
     </StatusContainer>
   </TodoLayout>
 )

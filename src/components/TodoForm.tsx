@@ -37,7 +37,7 @@ const TodoForm = ({}) => {
 
   const saveTodo = (e: any) => {
     e.preventDefault();
-    const newTodo = { name, completed: false };
+    const newTodo = { name };
     createTodo(newTodo);
     setTaskList((oldValue: Todo[]) => [...oldValue, newTodo]);
     setName('');
