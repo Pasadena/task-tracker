@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { taskList } from '../state/atoms';
-import { getActiveTodos } from '../state/selectors';
+import { getTodosByState } from '../state/selectors';
 
 import { Heading2, Paragraph } from './Typography';
 
-import { fetchTodos, completeTodo } from '../core/api';
+import { toggleTodoStatus } from '../core/api';
 
-import { DEVICE_SIZES } from '../core/constants';
+import { DEVICE_SIZES, TODO_STATE } from '../core/constants';
 
 const TodoListContainer = styled.div`
   box-sizing: border-box;
@@ -32,30 +32,28 @@ const Todos = styled.div`
   }
 `;
 
-const TodoList = () => {
-  const [_, setTodos] = useRecoilState(taskList);
-  const activeTodos = useRecoilValue(getActiveTodos);
-  const changeStatus = React.useCallback(async (todo: Todo) => {
-    const index = activeTodos.findIndex((item: Todo) => item.id === todo.id);
-    const updated = await completeTodo(todo.id);
-    const newList = [...activeTodos.slice(0, index), updated, ...activeTodos.slice(index + 1)];
-    setTodos(newList);
-  }, [activeTodos, setTodos]);
+interface TodoListProps {
+  state: TODO_STATE;
+  title: string;
+}
 
-  React.useEffect(() => {
-    async function loadTodos() {
-      const fetchedTodos = await fetchTodos();
-      setTodos(fetchedTodos);
-    }
-    loadTodos();
-  }, [setTodos]);
+const TodoList = ({state, title}: TodoListProps) => {
+  const setTodos = useSetRecoilState(taskList);
+  const filteredTodos = useRecoilValue(getTodosByState(state));
+  
+  const changeStatus = React.useCallback(async (todo: Todo) => {
+    const index = filteredTodos.findIndex((item: Todo) => item.id === todo.id);
+    const updated = await toggleTodoStatus(todo.id);
+    const newList = [...filteredTodos.slice(0, index), updated, ...filteredTodos.slice(index + 1)];
+    setTodos(newList);
+  }, [filteredTodos, setTodos]);
 
   return (
     <TodoListContainer>
-      <Heading2>Active tasks:</Heading2>
+      <Heading2>{title}</Heading2>
       <Todos>
-        {activeTodos.map((todo: Todo) => <Todo key={todo.id} todo={todo} onStatusChanged={changeStatus}/>)}
-        { activeTodos.length === 0 && <Paragraph>Nothing going on here mate!</Paragraph>}
+        {filteredTodos.map((todo: Todo) => <Todo key={todo.id} todo={todo} onStatusChanged={changeStatus}/>)}
+        { filteredTodos.length === 0 && <Paragraph>Nothing going on here mate!</Paragraph>}
       </Todos>
     </TodoListContainer>
   );

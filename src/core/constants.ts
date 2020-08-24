@@ -3,3 +3,8 @@ export const DEVICE_SIZES = {
   laptop: '1024px',
   desktop: '1400px'
 };
+
+export enum TODO_STATE {
+  ACTIVE,
+  COMPLETED
+};
