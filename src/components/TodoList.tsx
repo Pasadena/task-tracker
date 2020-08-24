@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { taskList } from '../state/atoms';
+import { getActiveTodos } from '../state/selectors';
 
 import { Heading2, Paragraph } from './Typography';
 
@@ -32,13 +33,14 @@ const Todos = styled.div`
 `;
 
 const TodoList = () => {
-  const [todos, setTodos] = useRecoilState(taskList);
+  const [_, setTodos] = useRecoilState(taskList);
+  const activeTodos = useRecoilValue(getActiveTodos);
   const changeStatus = React.useCallback(async (todo: Todo) => {
-    const index = todos.findIndex((item: Todo) => item.id === todo.id);
+    const index = activeTodos.findIndex((item: Todo) => item.id === todo.id);
     const updated = await completeTodo(todo.id);
-    const newList = [...todos.slice(0, index), updated, ...todos.slice(index + 1)];
+    const newList = [...activeTodos.slice(0, index), updated, ...activeTodos.slice(index + 1)];
     setTodos(newList);
-  }, [todos, setTodos]);
+  }, [activeTodos, setTodos]);
 
   React.useEffect(() => {
     async function loadTodos() {
@@ -52,8 +54,8 @@ const TodoList = () => {
     <TodoListContainer>
       <Heading2>Active tasks:</Heading2>
       <Todos>
-        {todos.map((todo: Todo) => <Todo key={todo.id} todo={todo} onStatusChanged={changeStatus}/>)}
-        { todos.length === 0 && <Paragraph>No active tasks \o/</Paragraph>}
+        {activeTodos.map((todo: Todo) => <Todo key={todo.id} todo={todo} onStatusChanged={changeStatus}/>)}
+        { activeTodos.length === 0 && <Paragraph>Nothing going on here mate!</Paragraph>}
       </Todos>
     </TodoListContainer>
   );
