@@ -6,8 +6,8 @@ import {
 
 import './App.css';
 import AppLayout from './components/AppLayout';
-import TodoForm from './components/TodoForm';
 import Todos from './components/Todos';
+import TodoModal from './components/TodoModal';
 
 const AppRoot = styled.div`
   width: 100vw;
@@ -25,8 +25,8 @@ function App() {
     <RecoilRoot>
       <AppRoot>
         <AppLayout>
-          <TodoForm />
           <Todos />
+          <TodoModal />
         </AppLayout>
       </AppRoot>
     </RecoilRoot>
