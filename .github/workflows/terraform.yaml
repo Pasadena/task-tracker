@@ -22,7 +22,7 @@ jobs:
         working-directory: ./infrastructure
 
       - name: Terraform Format
-        run: terraform fmt -check
+        run: terraform fmt
         working-directory: ./infrastructure
 
       - name: Terraform Plan
