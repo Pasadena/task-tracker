@@ -30,7 +30,7 @@ jobs:
         working-directory: ./infrastructure
 
       - name: Terraform Plan
-        run: terraform plan
+        run: terraform plan -var 'aws_access_key=${{ secrets.AWS_ACCESS_KEY_ID }}' -var 'aws_secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}'
         working-directory: ./infrastructure
 
       - name: Terraform Apply
