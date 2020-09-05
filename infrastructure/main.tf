@@ -37,6 +37,6 @@ resource "aws_instance" "web" {
   vpc_security_group_ids = [aws_security_group.instance.id]
 
   tags = {
-    Name = "task-tracker-intance"
+    Name = ["task-tracker-intance", "terraform"]
   }
 }
