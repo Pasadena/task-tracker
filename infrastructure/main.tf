@@ -32,7 +32,7 @@ resource "aws_security_group" "instance" {
 }
 
 resource "aws_s3_bucket" "task-tracker-bucket" {
-  bucket = "task-tracker"
+  bucket = "skoskinen-task-tracker"
   acl = "public-read"
   versioning {
     enabled = true
