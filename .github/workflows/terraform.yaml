@@ -64,4 +64,4 @@ jobs:
           args: --acl public-read --follow-symlinks --delete
         env:
           AWS_S3_BUCKET: ${{secrets.AWS_BUCKET_NAME}}
-          SOURCE_DIR: 'public'
+          SOURCE_DIR: 'build'
