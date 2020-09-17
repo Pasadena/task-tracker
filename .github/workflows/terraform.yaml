@@ -54,7 +54,7 @@ jobs:
           node-version: '10'
       - name: Build static website
         env:
-          API_URL: ${{secrets.API_URL}}
+          REACT_APP_API_URL: ${{secrets.API_URL}}
         run: |
           yarn install
           yarn build
