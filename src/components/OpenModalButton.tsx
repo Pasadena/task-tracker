@@ -9,7 +9,7 @@ import { todoModalVisibility } from '../state/atoms';
 const ButtonIcon = styled(PlusCircle)`
   position: absolute;
   right: 20px;
-  top: 20px;
+  top: 2rem;
   width: 80px;
   height: 80px;
   font-size: 1.2rem;

@@ -12,8 +12,7 @@ const Layout = styled.div`
   align-items: center;
   justify-content: center;
   margin: auto;
-  margin-top: 4rem;
-  width: 95%;
+  width: 100%;
   @media (min-width: ${DEVICE_SIZES.laptop}) { 
     width: 50%;
   }

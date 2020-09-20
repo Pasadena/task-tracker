@@ -8,6 +8,9 @@ import './App.css';
 import AppLayout from './components/AppLayout';
 import Todos from './components/Todos';
 import TodoModal from './components/TodoModal';
+import Header from './components/Header';
+
+import { DEVICE_SIZES } from './core/constants';
 
 const AppRoot = styled.div`
   width: 100vw;
@@ -18,6 +21,9 @@ const AppRoot = styled.div`
   justify-content: center;
   background: rgb(2,0,36);
   background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 58%, rgba(0,212,255,1) 100%);
+  @media (min-width: ${DEVICE_SIZES.laptop}) { 
+    height: 100%;
+  }
 `;
 
 function App() {
@@ -25,6 +31,7 @@ function App() {
     <RecoilRoot>
       <AppRoot>
         <AppLayout>
+          <Header />
           <Todos />
           <TodoModal />
         </AppLayout>
