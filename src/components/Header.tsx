@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { CheckCircle } from 'styled-icons/feather';
+import { List } from 'styled-icons/feather';
 
 import { Heading1 } from './Typography';
+
+import { DEVICE_SIZES } from '../core/constants';
 
 const Container = styled.div`
   display: flex;
@@ -10,16 +12,19 @@ const Container = styled.div`
   padding: 1.5rem;
   border-radius: 4px;
   width: 100%;
-  justify-content: center;
+  justify-content: space-evenly;
   background-color: #4b64bf;
   color: #ffff;
   box-sizing: border-box;
+  @media (min-width: ${DEVICE_SIZES.laptop}) { 
+    justify-content: center;
+  }
 `;
 
-const HeaderIcon = styled(CheckCircle)`
+const HeaderIcon = styled(List)`
   width: 70px;
   height: 70px;
-  margin-right: 2rem;
+  margin-right: 1rem;
 `;
 const Header = () => (
   <Container>
