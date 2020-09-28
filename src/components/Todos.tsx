@@ -6,6 +6,7 @@ import { taskList } from '../state/atoms';
 import { fetchTodos } from '../core/api';
 
 import TodoList from './TodoList';
+import OpenModalButton from './OpenModalButton';
 import { TODO_STATE } from 'src/core/constants';
 
 const TodosContainer = styled.div`
@@ -28,6 +29,7 @@ const Todos = (props) => {
 
   return (
     <TodosContainer>
+      <OpenModalButton />
       <TodoList state={TODO_STATE.ACTIVE} title="Active tasks"/>
       <TodoList state={TODO_STATE.COMPLETED} title="Completed tasks"/>
     </TodosContainer>
