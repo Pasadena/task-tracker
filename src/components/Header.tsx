@@ -22,8 +22,8 @@ const Container = styled.div`
 `;
 
 const HeaderIcon = styled(List)`
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 50px;
   margin-right: 1rem;
 `;
 const Header = () => (

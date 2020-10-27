@@ -14,7 +14,7 @@ import { DEVICE_SIZES } from './core/constants';
 
 const AppRoot = styled.div`
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,7 +22,7 @@ const AppRoot = styled.div`
   background: rgb(2,0,36);
   background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 58%, rgba(0,212,255,1) 100%);
   @media (min-width: ${DEVICE_SIZES.laptop}) { 
-    height: 100%;
+    min-height: 100%;
   }
 `;
 
