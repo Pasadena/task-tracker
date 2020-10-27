@@ -13,7 +13,9 @@ function headerConfig(method) {
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-export const createTodo = (todo: Todo) => axios.post(`${API_URL}/task-tracker`, JSON.stringify(todo), headerConfig('post'));
+export const createTodo = (todo: Todo) =>
+  axios.post(`${API_URL}/task-tracker`, JSON.stringify(todo), headerConfig('post'))
+  .then(res => res.data);
 
 export const fetchTodos = () =>
   axios.get(`${API_URL}/task-tracker`, headerConfig('get'))

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import Todo from './Todo';
-import Loader from './Loader';
 
 import { taskList } from '../state/atoms';
 import { getTodosByState } from '../state/selectors';
@@ -13,15 +12,6 @@ import { Heading2, Paragraph } from './Typography';
 import { toggleTodoStatus } from '../core/api';
 
 import { DEVICE_SIZES, TODO_STATE } from '../core/constants';
-
-const TodoListContainer = styled.div`
-  box-sizing: border-box;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 1rem;
-`;
 
 const Todos = styled.div`
   display: flex;
@@ -62,12 +52,4 @@ const TodoList = ({state, title}: TodoListProps) => {
   );
 }
 
-const TodoListWrapper = (props: TodoListProps) => (
-  <TodoListContainer>
-    <React.Suspense fallback={<Loader />}>
-      <TodoList { ...props } />
-    </React.Suspense>
-  </TodoListContainer>
-)
-
-export default TodoListWrapper;
+export default TodoList;

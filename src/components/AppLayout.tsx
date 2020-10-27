@@ -9,8 +9,6 @@ const Layout = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   margin: auto;
   width: 100%;
   @media (min-width: ${DEVICE_SIZES.laptop}) { 

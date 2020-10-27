@@ -107,18 +107,23 @@ const TodoModal = () => {
 
   const [name, setName] = React.useState('');
   const modalVisible = useRecoilValue(todoModalVisibility);
-  const closeModal = useSetRecoilState(todoModalVisibility);
+  const setModalVisible = useSetRecoilState(todoModalVisibility);
 
   const setTaskList = useSetRecoilState(taskList);
 
   const saveDisabled = () => name.length === 0;
 
-  const saveTodo = (e: any) => {
+  const saveTodo = async (e: any) => {
     e.preventDefault();
     const newTodo = { name };
-    createTodo(newTodo);
-    setTaskList((oldValue: Todo[]) => [...oldValue, newTodo]);
-    setName('');
+    try {
+      const savedTodo = await createTodo(newTodo);
+      setTaskList((oldValue: Todo[]) => [...oldValue, savedTodo]);
+      setName('');
+      setModalVisible(false);
+    } catch (e) {
+      console.log('Cannot save todo', e);
+    }
   }
 
   if (!modalVisible) {
@@ -129,9 +134,9 @@ const TodoModal = () => {
     <Overlay>
       <Modal>
         <TitleBar>
-          <BackArrow onClick={() => closeModal(false)}/>
+          <BackArrow onClick={() => setModalVisible(false)}/>
           <Heading3>Create a new todo</Heading3>
-          <CloseIcon onClick={() => closeModal(false)}/>
+          <CloseIcon onClick={() => setModalVisible(false)}/>
         </TitleBar>
         <Form onSubmit={saveTodo}>
           <InputContainer>
