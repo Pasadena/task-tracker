@@ -41,6 +41,7 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 0.5rem;
   & > * {
     margin: 0.5rem;
   }
@@ -49,15 +50,22 @@ const Form = styled.form`
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0.5rem;
 `;
 
 const InputTitle = styled.label`
+  font-size: 1.2rem;
+  font-weight: 600;
   margin-bottom: 0.5rem;
 `;
 
 const InputName = styled.input`
   padding: 0.5rem;
+  font-size: 1.2rem;
+  border-radius: 2px;
+  outline: none;
+  &:focus {
+    box-shadow: 1px 1px 2px #807e78;
+  }
 `;
 
 const SubmitButton = styled.button`
@@ -141,7 +149,8 @@ const TodoModal = () => {
         <Form onSubmit={saveTodo}>
           <InputContainer>
             <InputTitle>Name</InputTitle>
-            <InputName onChange={e => setName(e.target.value)} />
+            <InputName onChange={e => setName(e.target.value)}
+            />
           </InputContainer>
           <SubmitButton type="submit" disabled={saveDisabled()}>Save</SubmitButton>
         </Form>
