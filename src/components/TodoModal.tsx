@@ -89,6 +89,12 @@ const SubmitButton = styled.button`
   font-weight: 600;
   font-size: 1.2rem;
   background-color: #807e78;
+  transition: background-color 0.2s ease-in;
+  ${props => props.disabled && css`
+     background: rgba(128, 126, 120, 0.2);
+     border: 1px solid #807e78;
+     color: #363124;
+  `}
 `;
 
 const TitleBar = styled.div`
@@ -144,6 +150,7 @@ const TodoModal = () => {
       const savedTodo = await createTodo(newTodo);
       setTaskList((oldValue: Todo[]) => [...oldValue, savedTodo]);
       setName('');
+      setDueDate(null);
       setModalVisible(false);
     } catch (e) {
       console.log('Cannot save todo', e);
