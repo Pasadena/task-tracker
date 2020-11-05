@@ -10,6 +10,8 @@ import Todos from './components/Todos';
 import TodoModal from './components/TodoModal';
 import Header from './components/Header';
 
+import "react-datepicker/dist/react-datepicker.css";
+
 import { DEVICE_SIZES } from './core/constants';
 
 const AppRoot = styled.div`

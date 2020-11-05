@@ -1,6 +1,9 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { ArrowLeft, X } from 'styled-icons/feather';
+import DatePicker, { registerLocale } from 'react-datepicker';
+import fi from 'date-fns/locale/fi';
+import  { format } from 'date-fns';
 
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 
@@ -9,6 +12,8 @@ import { Heading3 } from './Typography';
 import { createTodo } from '../core/api';
 
 import { DEVICE_SIZES } from '../core/constants';
+
+registerLocale(fi);
 
 const Overlay = styled.div`
   position: absolute;
@@ -52,7 +57,7 @@ const InputContainer = styled.div`
   flex-direction: column;
 `;
 
-const InputTitle = styled.label`
+const InputLabel = styled.label`
   font-size: 1.2rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
@@ -68,6 +73,16 @@ const InputName = styled.input`
   }
 `;
 
+const StyledDatePicker = styled(DatePicker).attrs(props => ({ className: props.className }))`
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  border-radius: 2px;
+  & .container {
+    border: 5px solid red;
+  }
+`;
 const SubmitButton = styled.button`
   padding: 0.5rem;
   color: white;
@@ -114,6 +129,7 @@ const CloseIcon = styled(X)`
 const TodoModal = () => {
 
   const [name, setName] = React.useState('');
+  const [dueDate, setDueDate] = React.useState(null);
   const modalVisible = useRecoilValue(todoModalVisibility);
   const setModalVisible = useSetRecoilState(todoModalVisibility);
 
@@ -123,7 +139,7 @@ const TodoModal = () => {
 
   const saveTodo = async (e: any) => {
     e.preventDefault();
-    const newTodo = { name };
+    const newTodo = { name, dueDate: dueDate ? format(dueDate, 'yyyy-MM-dd') : null };
     try {
       const savedTodo = await createTodo(newTodo);
       setTaskList((oldValue: Todo[]) => [...oldValue, savedTodo]);
@@ -148,15 +164,23 @@ const TodoModal = () => {
         </TitleBar>
         <Form onSubmit={saveTodo}>
           <InputContainer>
-            <InputTitle>Name</InputTitle>
-            <InputName onChange={e => setName(e.target.value)}
-            />
+            <InputLabel>Name</InputLabel>
+            <InputName onChange={e => setName(e.target.value)}/>
+          </InputContainer>
+          <InputContainer>
+            <InputLabel>Due date: </InputLabel>
+            <StyledDatePicker
+              selected={dueDate}
+              onChange={date => setDueDate(date)}
+              dateFormat="dd.MM.yyyy"
+              withPortal
+              className="container"/>
           </InputContainer>
           <SubmitButton type="submit" disabled={saveDisabled()}>Save</SubmitButton>
         </Form>
       </Modal>
     </Overlay>
-  );
+  );  
 }
 
 export default TodoModal;
