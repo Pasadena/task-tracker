@@ -1,11 +1,6 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
-
- const bounce = keyframes`
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-  100% { transform: translateY(0px); }
- `;
+import styled from 'styled-components';
+import { bounce } from '../core/styles/keyframes';
 
  const Container = styled.div`
   display: flex;

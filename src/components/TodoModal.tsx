@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css } from 'styled-components';
 import { ArrowLeft, X, Loader } from 'styled-icons/feather';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import fi from 'date-fns/locale/fi';
@@ -10,6 +10,7 @@ import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { taskList, todoModalVisibility } from '../state/atoms';
 import { Heading3 } from './Typography';
 import { createTodo } from '../core/api';
+import { spin } from '../core/styles/keyframes';
 
 import { DEVICE_SIZES } from '../core/constants';
 
@@ -123,12 +124,6 @@ const TitleBar = styled.div`
   justify-content: center;
   position: relative;
 `;
-
-const spin = keyframes`
-  0% { transform:rotate(0deg); }
-  50% { transform:rotate(180deg); }
-  100% { transform:rotate(360deg); }
- `;
 
 const modalIcon = css`
   position: absolute;
