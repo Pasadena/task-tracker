@@ -2,13 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSetRecoilState } from 'recoil';
 
-import { taskList } from '../state/atoms';
-import { fetchTodos } from '../core/api';
-
-import TodoList from './TodoList';
-import OpenModalButton from './OpenModalButton';
+import { taskList } from 'src/state/atoms';
+import { fetchTodos } from 'src/core/api';
 import { TODO_STATE } from 'src/core/constants';
-import Loader from './Loader';
+
+import TodoList from 'src/components/TodoList';
+import OpenModalButton from 'src/components/OpenModalButton';
+import Loader from 'src/components/Loader';
 
 const TodosContainer = styled.div`
   position: relative;

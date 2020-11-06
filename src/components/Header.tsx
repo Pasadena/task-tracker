@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { List } from 'styled-icons/feather';
 
-import { Heading1 } from './Typography';
+import { Heading1 } from 'src/components/Typography';
 
-import { DEVICE_SIZES } from '../core/constants';
+import { DEVICE_SIZES } from 'src/core/constants';
 
 const Container = styled.div`
   display: flex;

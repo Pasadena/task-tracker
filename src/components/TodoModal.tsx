@@ -8,9 +8,9 @@ import  { format } from 'date-fns';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 
 import { taskList, todoModalVisibility } from '../state/atoms';
-import { Heading3 } from './Typography';
-import { createTodo } from '../core/api';
-import { spin } from '../core/styles/keyframes';
+import { Heading3 } from 'src/components/Typography';
+import { createTodo } from 'src/core/api';
+import { spin } from 'src/core/styles/keyframes';
 
 import { DEVICE_SIZES } from '../core/constants';
 

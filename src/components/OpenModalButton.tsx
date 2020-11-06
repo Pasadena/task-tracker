@@ -4,7 +4,7 @@ import { PlusCircle } from 'styled-icons/feather';
 
 import { useSetRecoilState } from 'recoil';
 
-import { todoModalVisibility } from '../state/atoms';
+import { todoModalVisibility } from 'src/state/atoms';
 
 const ButtonIcon = styled(PlusCircle)`
   position: absolute;

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { bounce } from '../core/styles/keyframes';
+import { bounce } from 'src/core/styles/keyframes';
 
  const Container = styled.div`
   display: flex;

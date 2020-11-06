@@ -2,16 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import Todo from './Todo';
+import Todo from 'src/components/Todo';
+import { Heading2, Paragraph } from 'src/components/Typography';
 
-import { taskList } from '../state/atoms';
-import { getTodosByState } from '../state/selectors';
+import { taskList } from 'src/state/atoms';
+import { getTodosByState } from 'src/state/selectors';
 
-import { Heading2, Paragraph } from './Typography';
-
-import { toggleTodoStatus } from '../core/api';
-
-import { DEVICE_SIZES, TODO_STATE } from '../core/constants';
+import { toggleTodoStatus } from 'src/core/api';
+import { DEVICE_SIZES, TODO_STATE } from 'src/core/constants';
 
 const Todos = styled.div`
   display: flex;
