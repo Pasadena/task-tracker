@@ -16,6 +16,17 @@ const TodosContainer = styled.div`
   height: 100%;
   padding: 1rem;
   box-sizing: border-box;
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+`;
+
+const LoaderContainer = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+
 `;
 
 const Todos = () => {
@@ -36,7 +47,7 @@ const Todos = () => {
       <OpenModalButton />
       {
         loading
-        ? <Loader />
+        ? <LoaderContainer><Loader /></LoaderContainer>
         : <>
           <TodoList state={TODO_STATE.ACTIVE} title="Active tasks"/>
           <TodoList state={TODO_STATE.COMPLETED} title="Completed tasks"/>
