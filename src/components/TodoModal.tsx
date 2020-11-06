@@ -1,6 +1,6 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
-import { ArrowLeft, X } from 'styled-icons/feather';
+import styled, { css, keyframes } from 'styled-components';
+import { ArrowLeft, X, Loader } from 'styled-icons/feather';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import fi from 'date-fns/locale/fi';
 import  { format } from 'date-fns';
@@ -83,13 +83,31 @@ const StyledDatePicker = styled(DatePicker).attrs(props => ({ className: props.c
     border: 5px solid red;
   }
 `;
+
+const SubmitContainer = styled.div.attrs((props: any) => ({ ...props }))`
+  margin-top: 1rem;
+  ${props => (props as any).saving && css`
+    display: flex;
+    justify-content: center;
+    > button {
+      opacity: 0;
+      width: 0;
+    }
+    > svg {
+      opacity: 100;
+    }    
+  `}
+`;
+
 const SubmitButton = styled.button`
+  width: 100%;
   padding: 0.5rem;
   color: white;
   font-weight: 600;
   font-size: 1.2rem;
   background-color: #807e78;
-  transition: background-color 0.2s ease-in;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in, opacity 0.2s, width 0.2s;
   ${props => props.disabled && css`
      background: rgba(128, 126, 120, 0.2);
      border: 1px solid #807e78;
@@ -105,6 +123,12 @@ const TitleBar = styled.div`
   justify-content: center;
   position: relative;
 `;
+
+const spin = keyframes`
+  0% { transform:rotate(0deg); }
+  50% { transform:rotate(180deg); }
+  100% { transform:rotate(360deg); }
+ `;
 
 const modalIcon = css`
   position: absolute;
@@ -132,26 +156,44 @@ const CloseIcon = styled(X)`
   }
 `;
 
+const SavingIcon = styled(Loader)`
+  width: 50px;
+  height: 50px;
+  opacity: 0;
+  color: #807e78;
+  transition: opacity 0.3s;
+  animation-name: ${spin};
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+`;
+
 const TodoModal = () => {
 
   const [name, setName] = React.useState('');
   const [dueDate, setDueDate] = React.useState(null);
+  const [saving, setSaving] = React.useState(false);
   const modalVisible = useRecoilValue(todoModalVisibility);
   const setModalVisible = useSetRecoilState(todoModalVisibility);
 
   const setTaskList = useSetRecoilState(taskList);
 
-  const saveDisabled = () => name.length === 0;
+  const saveDisabled = () => name.length === 0 || saving;
+
+  const onModalClose = () => {
+    setName('');
+    setDueDate(null);
+    setSaving(false);
+    setModalVisible(false);
+  }
 
   const saveTodo = async (e: any) => {
     e.preventDefault();
+    setSaving(true);
     const newTodo = { name, dueDate: dueDate ? format(dueDate, 'yyyy-MM-dd') : null };
     try {
       const savedTodo = await createTodo(newTodo);
       setTaskList((oldValue: Todo[]) => [...oldValue, savedTodo]);
-      setName('');
-      setDueDate(null);
-      setModalVisible(false);
+      onModalClose();
     } catch (e) {
       console.log('Cannot save todo', e);
     }
@@ -183,7 +225,12 @@ const TodoModal = () => {
               withPortal
               className="container"/>
           </InputContainer>
-          <SubmitButton type="submit" disabled={saveDisabled()}>Save</SubmitButton>
+          <SubmitContainer saving={saving}>
+            <SubmitButton type="submit" disabled={saveDisabled()}>
+              Save
+            </SubmitButton>
+            <SavingIcon />
+          </SubmitContainer>
         </Form>
       </Modal>
     </Overlay>
