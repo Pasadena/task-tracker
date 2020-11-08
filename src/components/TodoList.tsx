@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import  { format } from 'date-fns';
 
 import Todo from 'src/components/Todo';
 import { Heading2, Paragraph } from 'src/components/Typography';
@@ -10,6 +11,8 @@ import { getTodosByState } from 'src/state/selectors';
 
 import { toggleTodoStatus } from 'src/core/api';
 import { DEVICE_SIZES, TODO_STATE } from 'src/core/constants';
+
+const DATETIME_FORMAT = 'yyyy-mm-dd HH:mm:ss';
 
 const Todos = styled.div`
   display: flex;
@@ -29,15 +32,19 @@ interface TodoListProps {
 }
 
 const TodoList = ({state, title}: TodoListProps) => {
-  const setTodos = useSetRecoilState(taskList);
+  const [allTodos, setTodos] = useRecoilState(taskList);
   const filteredTodos = useRecoilValue(getTodosByState(state));
   
   const changeStatus = React.useCallback(async (todo: Todo) => {
-    const index = filteredTodos.findIndex((item: Todo) => item.id === todo.id);
-    const updated = await toggleTodoStatus(todo.id);
-    const newList = [...filteredTodos.slice(0, index), updated, ...filteredTodos.slice(index + 1)];
+    const index = allTodos.findIndex((item: Todo) => item.id === todo.id);
+    const toggled = {
+      ...todo,
+      completed_at: todo.completed_at === null ? format(new Date(), DATETIME_FORMAT) : null
+    };
+    const updated = await toggleTodoStatus(toggled);
+    const newList = [...allTodos.slice(0, index), updated, ...allTodos.slice(index + 1)];
     setTodos(newList);
-  }, [filteredTodos, setTodos]);
+  }, [allTodos, setTodos]);
 
   return (
     <>

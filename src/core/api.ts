@@ -21,6 +21,6 @@ export const fetchTodos = () =>
   axios.get(`${API_URL}/task-tracker`, headerConfig('get'))
   .then(res => res.data);
 
-export const toggleTodoStatus = (id: string) =>
-  axios.put(`${API_URL}/task-tracker`, JSON.stringify({ id }), headerConfig('put'))
+export const toggleTodoStatus = (todo: Todo) =>
+  axios.put(`${API_URL}/task-tracker`, JSON.stringify(todo), headerConfig('put'))
   .then(res => res.data);

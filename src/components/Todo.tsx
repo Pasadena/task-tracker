@@ -40,8 +40,8 @@ const CreatedAt = styled.div`
 `;
 
 const TodoStatusCheckbox = styled.input`
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
 `;
 
 const Todo = ({ todo, onStatusChanged }: { todo: Todo, onStatusChanged: (todo: Todo) => void }) => (
