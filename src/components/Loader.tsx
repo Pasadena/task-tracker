@@ -22,7 +22,7 @@ export default () => (
   <Container>
     {
     "Loading...".split('').map((letter: string, index: number) =>
-      <Letter style={{ animationDelay: (index / 10) + 's'}}>{letter}</Letter>)
+      <Letter key={`${letter}-${index}`} style={{ animationDelay: (index / 10) + 's'}}>{letter}</Letter>)
     }
   </Container>
 );
